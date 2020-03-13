@@ -57,48 +57,48 @@ d3.json(newtry, function(data) {
   
   console.log(data);
 
-  var stationStatusCode;
+  var teamName;
   for (var i = 0; i < data.length; i++)
   {
 
-    // Create a new station object with properties of both station objects
-    var station = Object.assign({}, data[i].name, data[i].team,data[i].city );
-
-    // If a station is listed but not installed, it's coming soon
+    // Create a new data object with properties 
+    // var station = Object.assign({}, data[i].name, data[i].team, data[i].city );
+//  Group people by their team
     if (data.team=="Alphine") {
-      stationStatusCode = "Alphine";
+      teamName = "Alphine";
     }
-    // If a station has no bikes available, it's empty
+    
     else if (data.team=="Snowboard") {
-      stationStatusCode = "Snowboard";
+      teamName = "Snowboard";
     }
-    // If a station is installed but isn't renting, it's out of order
+    
     else if (data.team=="Nordic Combined") {
-      stationStatusCode = "NordicCombined";
+      teamName = "NordicCombined";
     }
-    // If a station has less than 5 bikes, it's status is low
+    
     else if (data.team=="Freeski") {
-      stationStatusCode = "Freeski";
+      teamName = "Freeski";
     }
     else if (data.team=="Cross Country") {
-      stationStatusCode = "CrossCountry";
+      teamName = "CrossCountry";
     }
     // Otherwise the station is normal
     else if (data.team=="Ski Jumping") {
-      stationStatusCode = "SkiJumping"; }
+      teamName = "SkiJumping"; }
 
 
   // Add the new marker to the appropriate layer
-  var newMarker = L.marker([data.lat, data.long]);
+  var newMarker = L.marker([data.lat, data.long],
+    {
 
-// Add the new marker to the appropriate layer
-  newMarker.addTo(layers[stationStatusCode]);
+  });
+
+
+   newMarker.addTo(layers[teamName]);
 
   // Bind a popup to the marker that will  display on click. This will be rendered as HTML
   //  L.marker([data[i].lat, data[i].long])
-    newMarker.bindPopup("<h1>" + data[i].name + "</h1> <hr> <h3>" + data[i].team + "</h1> <hr> <h3>" + data[i].city + "</h3>");
-
-
-  }
+    newMarker.bindPopup("<h1>" + data[i].name + "</h1> <hr> <h3>" + data[i].team + "</h1> <hr> <h3>" + data[i].city + "</h3>")
+  };
 
 });
